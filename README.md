@@ -1,7 +1,7 @@
 # NodeJS Remote Control
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/bongrip/node-remote-controller)
-![GitHub stars](https://img.shields.io/github/stars/bongrip/NodeJS-node-remote-controller)
+![GitHub stars](https://img.shields.io/github/stars/bongrip/node-remote-controller)
 ![GitHub forks](https://img.shields.io/github/forks/bongrip/node-remote-controller)
 ![GitHub issues](https://img.shields.io/github/issues/bongrip/node-remote-controller)
 ![GitHub license](https://img.shields.io/github/license/bongrip/node-remote-controller)
