@@ -23,3 +23,18 @@ Before getting started, make sure you have the following dependencies installed:
 - [Discord.js](https://discord.js.org/)
 - [screenshot-desktop](https://www.npmjs.com/package/screenshot-desktop)
 - [Jimp](https://www.npmjs.com/package/jimp)
+
+## Add to startup (optional)
+
+You can do this via PM2,
+
+[Download PM2](https://www.npmjs.com/package/pm2) (npm install pm2 -g)
+[Download the startup PM2 script for Windows](https://www.npmjs.com/package/pm2-windows-startup) (npm install pm2-windows-startup -g)
+
+Run the following,
+
+pm2 start index.js
+pm2 save
+pm2-startup install
+pm2 save
+
