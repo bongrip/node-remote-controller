@@ -29,15 +29,17 @@ client.on('messageCreate', async (message) => {
   if (message.content === `${config.prefix}shutdown`) {
     DateLog('Initiating shutdown');
     message.channel.send(':zzz: Shutting down');
-
-    const exec = require('child_process').exec;
-    exec('shutdown /s /f /t 0', (error, stdout, stderr) => {
-      if (error) {
-        DateLog(`Error: ${error}`);
-      } else {
-        DateLog(`System shutdown initiated: ${stdout}`);
-      }
-    });
+    // impl. fix for msg not sending
+    setTimeout(() => {
+      const exec = require('child_process').exec;
+      exec('shutdown /s /f /t 0', (error, stdout, stderr) => {
+        if (error) {
+          DateLog(`Error: ${error}`);
+        } else {
+          DateLog(`System shutdown initiated: ${stdout}`);
+        }
+      });
+    }, 250)
   }
 
   if (message.content === `${config.prefix}lock`) {
@@ -61,7 +63,7 @@ client.on('messageCreate', async (message) => {
       const img = await screenshot({ format: 'png' });
       const image = await Jimp.read(img);
       const font = await Jimp.loadFont(Jimp.FONT_SANS_32_WHITE);
-      image.print(font, 10, 350, `${new Date().toISOString().slice(0, 10)} - remote_screenshot success`);
+      image.print(font, 10, 350, `${new Date().toISOString().slice(0, 10)} - ${client.user.tag} | ${message.guild.name}`);
       const buf = await image.getBufferAsync(Jimp.MIME_PNG)
       message.channel.send({
         files: [
@@ -79,6 +81,20 @@ client.on('messageCreate', async (message) => {
 
   if (message.content === `${config.prefix}help`) {
     message.channel.send(`Commands:\n\`${config.prefix}shutdown\` - Shut down PC\n\`${config.prefix}lock\` - Lock PC\n\`${config.prefix}screenshot\` - Take a screenshot`);
+  }
+
+  if (message.content === `${config.prefix}cleanup`) {
+    message.channel.messages.fetch().then(col => {
+      col.forEach(msg => {
+        try {
+          msg.delete()
+          DateLog(`[message] [cleaner] cleaned ${msg.id}`)
+        } catch (err) {
+          DateLog(`[message] [cleaner] [exception] ${err}`)
+        }
+      })
+    })
+    
   }
 });
 
